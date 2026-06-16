@@ -79,6 +79,12 @@ Cada arquivo tem uma única responsabilidade. O handler só trata HTTP. O use ca
 ### O — Open/Closed
 Para adicionar um novo endpoint, você cria um novo handler e um novo use case — sem modificar o que já existe.
 
+### L — Liskov Substitution
+Qualquer implementação de repositório pode substituir outra sem quebrar o sistema. `ProductRepositoryPostgres` implementa `ProductRepository` — se amanhã existir um `ProductRepositoryInMemory` para testes, o use case recebe qualquer um dos dois sem saber a diferença. Será aplicado quando houver múltiplas implementações.
+
+### I — Interface Segregation
+Interfaces devem ser pequenas e específicas — nenhum tipo deve ser forçado a implementar métodos que não usa. `ProductRepository` só tem métodos de produto. `FragranceRepository` só tem métodos de fragância. Nenhuma interface gigante que mistura responsabilidades. Será reforçado conforme as interfaces crescerem.
+
 ### D — Dependency Inversion
 Use cases dependem de **interfaces** de repositório, nunca de implementações concretas. O Postgres é um detalhe de infraestrutura invisível para a camada de aplicação.
 
